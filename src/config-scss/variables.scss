@@ -1,0 +1,27 @@
+:root {
+  --branco: #fff;
+  --cinza: #d8d8d8;
+
+  --primary-color: #262835;
+  // #262835
+  --secondary-color: #ff5473;
+
+  --tertiary-color: linear-gradient(
+    45deg,
+    rgba(195, 55, 100, 1) 0%,
+    rgba(29, 38, 113, 1) 25%,
+    #159957 100%
+  );
+}
+
+@keyframes colors {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
