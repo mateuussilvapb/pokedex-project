@@ -1,0 +1,64 @@
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes typeAndDelete {
+  0%,
+  10% {
+    width: 0;
+  }
+  45%,
+  55% {
+    width: 5.8rem;
+  }
+  90%,
+  100% {
+    width: 0;
+  }
+}
+
+@keyframes blinkCursor {
+  50% {
+    border-right-color: transparent;
+  }
+}
+
+.overlay {
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.3); /* Cor de fundo preto transparente */
+  z-index: 1000; /* Ajuste a ordem de sobreposição conforme necessário */
+  display: none;
+}
+
+.overlay.show {
+  display: block;
+}
+
+.container-spinner {
+  top: 50%;
+  left: 50%;
+  z-index: 1001; /* Ajuste a ordem de sobreposição conforme necessário */
+  position: fixed;
+  transform: translate(-50%, -50%);
+}
+
+.spinner-border {
+  animation: spin 5s linear infinite;
+}
+
+.custom-text-loading {
+  color: var(--cinza);
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 0.1rem var(--branco) solid; /* Cursor */
+  animation: typeAndDelete 5s steps(12) infinite,
+    blinkCursor 0.5s step-end infinite alternate;
+  margin-top: 1.5em;
+}

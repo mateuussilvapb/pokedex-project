@@ -1,0 +1,17 @@
+@import "../../../config-scss/rem-calc.scss";
+
+:host {
+  .custom-form {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: rem-calc(10);
+    .custom-input {
+      width: 95%;
+      background: none;
+      border: none;
+      color: var(--branco);
+      &::placeholder {
+        color: var(--cinza);
+      }
+    }
+  }
+}
