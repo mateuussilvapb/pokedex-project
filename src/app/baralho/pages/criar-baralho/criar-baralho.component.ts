@@ -1,6 +1,7 @@
 import { PokemonService } from './../../service/pokemon.service';
-import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import {
   GridSelectionMode,
   IRowSelectionEventArgs,
@@ -42,6 +43,7 @@ export class CriarBaralhoComponent implements OnInit {
   private currentPage: number = 1;
 
   constructor(
+    private readonly router: Router,
     private readonly formBuilder: FormBuilder,
     private readonly pokemonService: PokemonService
   ) {}
@@ -79,6 +81,9 @@ export class CriarBaralhoComponent implements OnInit {
     this.form.get('id').setValue(this.generateRandomId);
     localStorage.setItem('list-baralhos', JSON.stringify(this.form.value));
     this.snackbar.open('Baralho criado com sucesso!');
+    setTimeout(() => {
+      this.router.navigate(['']);
+    }, 5000);
   }
 
   private findPokemonById(id: string): PokemonData | undefined {
