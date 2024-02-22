@@ -1,1 +1,56 @@
-<p>visualizar-baralho works!</p>
+<div class="sample-column card-wrapper" *ngIf="baralho">
+  <igx-card elevated>
+    <igx-card-header>
+      <div class="flex flex-col flex-nowrap w-full">
+        <h3 igxCardHeaderTitle class="text-center">
+          Baralho {{ baralho.nomeBaralho }}
+        </h3>
+        <div class="flex flex-row flex-nowrap w-full justify-between mt-3">
+          <div class="flex flex-row flex-nowrap">
+            <div>Pokemóns:</div>
+            <div class="ml-1">{{ qtdCartasPokemons }}</div>
+          </div>
+          <div class="flex flex-row flex-nowrap">
+            <div>Treinadores:</div>
+            <div class="ml-1">{{ qtdCartasTreinadores }}</div>
+          </div>
+        </div>
+      </div>
+    </igx-card-header>
+    <igx-card-content>
+      <div class="content-card-baralho-custom">
+        <div *ngFor="let carta of baralho.cartas">
+          <app-info-card-pokemon
+            [carta]="carta['cardPokemon']"
+          ></app-info-card-pokemon>
+        </div>
+      </div>
+    </igx-card-content>
+    <igx-card-actions class="flex flex-nowrap flex-row">
+      <div class="flex flex-wrap flex-row justify-start">
+        <div class="font-bold">Tipos:</div>
+        <div
+          *ngFor="let tipo of tiposUnicos; let last = last"
+          class="mx-1 flex flex-row flex-nowrap h-auto"
+        >
+          <div>
+            {{ tipo }}
+          </div>
+          <div *ngIf="!last">,</div>
+          <div *ngIf="last">.</div>
+        </div>
+      </div>
+      <div>
+        <button
+          igxRipple
+          igxStart
+          type="button"
+          [routerLink]="['']"
+          igxButton="outlined"
+        >
+          Voltar
+        </button>
+      </div>
+    </igx-card-actions>
+  </igx-card>
+</div>

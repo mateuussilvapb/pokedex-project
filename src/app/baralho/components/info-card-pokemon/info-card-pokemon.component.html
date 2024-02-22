@@ -1,0 +1,48 @@
+<div class="my-3">
+  <igx-card elevated *ngIf="carta">
+    <igx-card-content class="p-0">
+      <div class="flex flex-row flex-nowrap">
+        <div class="w-1/4 h-auto">
+          <img
+            [src]="carta.images.large"
+            [alt]="carta.name"
+            class="w-full h-auto"
+          />
+        </div>
+        <div class="w-3/4 h-auto m-3 flex flex-col flex-nowrap">
+          <h2 igxCardHeaderTitle class="text-center">
+            {{ carta.name }}
+          </h2>
+          <div class="flex flex-row flex-nowrap text-base mt-3">
+            <div class="grid w-full grid-cols-4">
+              <div class="text-center">
+                <div class="font-semibold">Habilidades</div>
+                <div *ngFor="let habilidade of carta.abilities">
+                  {{ habilidade.name }}
+                </div>
+              </div>
+              <div class="text-center">
+                <div class="font-semibold">Ataques</div>
+                <div *ngFor="let ataques of carta.attacks">
+                  {{ ataques.name }}
+                </div>
+              </div>
+              <div class="text-center">
+                <div class="font-semibold">Fraquezas</div>
+                <div *ngFor="let fraquezas of carta.weaknesses">
+                  {{ fraquezas.type }}
+                </div>
+              </div>
+              <div class="text-center">
+                <div class="font-semibold">Resistência</div>
+                <div *ngFor="let resitencia of carta.resistances">
+                  {{ resitencia.type }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </igx-card-content>
+  </igx-card>
+</div>

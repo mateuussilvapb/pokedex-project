@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { NavigationExtras, Router } from '@angular/router';
 import { IgxIconService, IgxSnackbarComponent } from 'igniteui-angular';
 import { Baralho } from 'src/app/shared/model/baralho';
 
@@ -14,7 +15,10 @@ export class BaralhosPokemonComponent implements OnInit {
   public showModalDelecao: boolean = false;
   public idParaDelecao: string = '';
 
-  constructor(private iconService: IgxIconService) {
+  constructor(
+    private readonly router: Router,
+    private readonly iconService: IgxIconService
+  ) {
     this.iconService.addSvgIcon('see', 'assets/icons/see.svg', 'filter-icons');
     this.iconService.addSvgIcon(
       'delete',
@@ -45,6 +49,10 @@ export class BaralhosPokemonComponent implements OnInit {
     this.showModalDelecao = false;
     this.snackbar.open('Baralho removido com sucesso!');
     this.consultarBaralhos();
+  }
+
+  public visualizarBaralho(id: string) {
+    this.router.navigate([`visualizar-baralho/${id}`]);
   }
 
   private consultarBaralhos() {
