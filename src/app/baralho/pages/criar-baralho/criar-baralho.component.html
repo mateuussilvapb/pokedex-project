@@ -136,14 +136,19 @@
             </igx-grid>
           </div>
         </div>
-        <div
-          class="validate-message text-xs px-4"
-          *ngIf="this.pokemonFormArray.dirty && this.pokemonFormArray.invalid"
-        >
-          <span
-            >Você precisa selecionar entre 24 e 60 cartas para criar um
-            baralho.</span
-          >
+        <div class="flex flex-row flex-nowrap justify-between px-4">
+          <div class="validate-message text-xs">
+            <span
+              *ngIf="
+                this.pokemonFormArray.dirty && this.pokemonFormArray.invalid
+              "
+              >Você precisa selecionar entre 24 e 60 cartas para criar um
+              baralho.</span
+            >
+          </div>
+          <div class="text-xs">
+            <span>Contador de cartas: {{ this.pokemonFormArray.length }}</span>
+          </div>
         </div>
       </igx-card-content>
       <igx-card-actions class="flex flex-nowrap flex-row-reverse">

@@ -124,6 +124,7 @@ export class CriarBaralhoComponent implements OnInit {
     return contador.toString();
   }
 
+
   public onSubmit() {
     if (this.form.invalid) {
       this.snackbar.open('O formulário está inválido!');
