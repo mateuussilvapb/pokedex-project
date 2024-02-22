@@ -35,8 +35,12 @@ html {
 }
 
 main {
-  max-width: rem-calc(600);
+  max-width: rem-calc(800);
   box-sizing: border-box;
   padding: 0 20px;
   margin: 0 auto;
+}
+
+.card-wrapper {
+  width: 100%;
 }

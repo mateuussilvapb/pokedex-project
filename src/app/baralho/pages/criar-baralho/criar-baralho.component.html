@@ -1,0 +1,174 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="sample-column card-wrapper">
+    <igx-card elevated>
+      <igx-card-header>
+        <h3 igxCardHeaderTitle class="text-center">Criar Baralho</h3>
+      </igx-card-header>
+      <igx-card-content>
+        <igx-input-group>
+          <input
+            igxInput
+            type="text"
+            name="nomeBaralho"
+            formControlName="nomeBaralho"
+          />
+          <label igxLabel for="nomeBaralho">Nome Do Baralho</label>
+        </igx-input-group>
+        <div
+          class="validate-message text-xs"
+          *ngIf="
+            (this.form.get('nomeBaralho').dirty ||
+              this.form.get('nomeBaralho').touched) &&
+            this.form.get('nomeBaralho').invalid
+          "
+        >
+          <span>Você precisa informar um nome para o baralho.</span>
+        </div>
+        <div class="pt-10">
+          <h6 class="text-center text-xl font-medium">
+            Lista de Cartas Disponíveis
+          </h6>
+
+          <div class="px-4 pt-4">
+            <igx-grid
+              width="100%"
+              height="600px"
+              [primaryKey]="'id'"
+              [data]="pokemonCards"
+              [allowFiltering]="true"
+              [cellSelection]="'none'"
+              [selectedRows]="selectedRows"
+              [rowSelection]="selectionMode"
+              [hideRowSelectors]="hideRowSelectors"
+              (rowSelectionChanging)="handleRowSelection($event)"
+            >
+              <igx-column
+                field="name"
+                header="Nome"
+                [sortable]="true"
+                [dataType]="'string'"
+              ></igx-column>
+              <igx-column
+                field="hp"
+                header="HP"
+                [dataType]="'string'"
+              ></igx-column>
+              <igx-column header="Ataques" [dataType]="'string'">
+                <ng-template igxCell let-cell="cell" let-val>
+                  <i
+                    (click)="showAttacks(cell.id)"
+                    class="custom-i justify-center text-2xl"
+                    >...</i
+                  >
+                </ng-template>
+              </igx-column>
+              <igx-column header="Habilidades" [dataType]="'string'">
+                <ng-template igxCell let-val let-cell="cell">
+                  <i
+                    (click)="showAbilities(cell.id)"
+                    class="custom-i justify-center text-2xl"
+                    >...</i
+                  >
+                </ng-template>
+              </igx-column>
+              <igx-column header="Fraquezas" [dataType]="'string'">
+                <ng-template igxCell let-cell="cell" let-val>
+                  <i
+                    (click)="showWeaknesses(cell.id)"
+                    class="custom-i justify-center text-2xl"
+                    >...</i
+                  >
+                </ng-template>
+              </igx-column>
+            </igx-grid>
+          </div>
+        </div>
+        <div
+          class="validate-message text-xs px-4"
+          *ngIf="this.pokemonFormArray.dirty && this.pokemonFormArray.invalid"
+        >
+          <span
+            >Você precisa selecionar entre 24 e 60 cartas para criar um
+            baralho.</span
+          >
+        </div>
+      </igx-card-content>
+      <igx-card-actions class="flex flex-nowrap flex-row-reverse">
+        <button
+          igxButton
+          igxRipple
+          igxStart
+          type="submit"
+          [disabled]="form.invalid"
+        >
+          Criar Baralho
+        </button>
+      </igx-card-actions>
+    </igx-card>
+  </div>
+</form>
+
+<div>
+  <igx-snackbar #snackbar></igx-snackbar>
+</div>
+
+<app-loading-component *ngIf="loading"></app-loading-component>
+
+<!-- MODAIS -->
+<!-- MODAL ATAQUES -->
+<app-modal *ngIf="showModalAttacks">
+  <div class="titulo-modal-custom">Ataques do Pokemón</div>
+  <div class="conteudo-modal-custom">
+    <ul>
+      <li *ngFor="let attack of attacks" class="li-modal-custom">
+        {{ attack.name }}
+      </li>
+    </ul>
+  </div>
+  <div class="funcoes-modal-custom">
+    <button igxButton="outlined" igxRipple (click)="showModalAttacks = false">
+      Fechar
+    </button>
+  </div>
+</app-modal>
+
+<!-- MODAL HABILIDADES -->
+<app-modal *ngIf="showModalAbilities">
+  <div class="titulo-modal-custom">Habilidades do Pokemón</div>
+  <div class="conteudo-modal-custom">
+    <ul>
+      <li *ngFor="let ability of abilities" class="li-modal-custom">
+        <div class="font-bold">
+          {{ ability.name }}
+        </div>
+        {{ ability.text }}
+      </li>
+    </ul>
+  </div>
+  <div class="funcoes-modal-custom">
+    <button igxButton="outlined" igxRipple (click)="showModalAbilities = false">
+      Fechar
+    </button>
+  </div>
+</app-modal>
+
+<!-- MODAL FRAQUEZAS -->
+<app-modal *ngIf="showModalWeaknesses">
+  <div class="titulo-modal-custom">Fraquezas do Pokemón</div>
+  <div class="conteudo-modal-custom">
+    <ul>
+      <li *ngFor="let weakness of weaknesses" class="li-modal-custom">
+        {{ weakness.type }}
+      </li>
+    </ul>
+  </div>
+  <div class="funcoes-modal-custom">
+    <button
+      igxButton="outlined"
+      igxRipple
+      (click)="showModalWeaknesses = false"
+    >
+      Fechar
+    </button>
+  </div>
+</app-modal>

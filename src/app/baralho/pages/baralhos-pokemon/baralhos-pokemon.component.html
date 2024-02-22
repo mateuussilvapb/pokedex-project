@@ -1,0 +1,14 @@
+<div class="sample-column card-wrapper">
+  <igx-card elevated class="custom-card">
+    <igx-card-content>
+      <p *ngIf="baralhos.length === 0" class="text-center custom-text">
+        Você ainda não criou nenhum baralho...
+      </p>
+    </igx-card-content>
+    <igx-card-actions>
+      <button igxButton="outlined" igxRipple routerLink="criar-baralho">
+        Criar Baralho
+      </button>
+    </igx-card-actions>
+  </igx-card>
+</div>
