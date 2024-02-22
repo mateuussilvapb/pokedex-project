@@ -53,7 +53,9 @@
 }
 
 .custom-text-loading {
-  color: var(--cinza);
+  color: #ffffff;
+  text-shadow: -1px -1px 0px #000, -1px 1px 0px #000, 1px -1px 0px #000,
+    1px 0px 0px #000;
   display: inline-block;
   white-space: nowrap;
   overflow: hidden;
