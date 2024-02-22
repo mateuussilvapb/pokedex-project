@@ -21,7 +21,7 @@ import {
 } from 'igniteui-angular';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
-import { ModalComponent } from './components/modal-attacks/modal-attacks.component';
+import { ModalComponent } from './components/modal-attacks/modal.component';
 
 @NgModule({
   declarations: [

@@ -1,12 +1,60 @@
-import { Component, OnInit } from '@angular/core';
-import { PokemonData } from 'src/app/shared/model/pokemon';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { IgxIconService, IgxSnackbarComponent } from 'igniteui-angular';
+import { Baralho } from 'src/app/shared/model/baralho';
 
 @Component({
   templateUrl: './baralhos-pokemon.component.html',
   styleUrls: ['./baralhos-pokemon.component.scss'],
 })
 export class BaralhosPokemonComponent implements OnInit {
-  public baralhos: Array<PokemonData> = [];
+  @ViewChild(IgxSnackbarComponent, { static: true })
+  public snackbar: IgxSnackbarComponent;
+  public loading: boolean = false;
+  public baralhos: Array<Baralho> = [];
+  public showModalDelecao: boolean = false;
+  public idParaDelecao: string = '';
 
-  ngOnInit(): void {}
+  constructor(private iconService: IgxIconService) {
+    this.iconService.addSvgIcon('see', 'assets/icons/see.svg', 'filter-icons');
+    this.iconService.addSvgIcon(
+      'delete',
+      'assets/icons/delete.svg',
+      'filter-icons'
+    );
+    this.iconService.addSvgIcon(
+      'edit',
+      'assets/icons/edit.svg',
+      'filter-icons'
+    );
+  }
+
+  ngOnInit(): void {
+    this.consultarBaralhos();
+  }
+
+  public confirmarExclusao(id: string) {
+    this.idParaDelecao = id;
+    this.showModalDelecao = true;
+  }
+
+  public deletarBaralho() {
+    this.baralhos = this.baralhos.filter(
+      (item) => item.id !== this.idParaDelecao
+    );
+    localStorage.setItem('list-baralhos', JSON.stringify(this.baralhos));
+    this.showModalDelecao = false;
+    this.snackbar.open('Baralho removido com sucesso!');
+    this.consultarBaralhos();
+  }
+
+  private consultarBaralhos() {
+    this.loading = true;
+    const baralhosLocalStorage = JSON.parse(
+      localStorage.getItem('list-baralhos')
+    );
+    if (baralhosLocalStorage) {
+      this.baralhos = baralhosLocalStorage;
+    }
+    this.loading = false;
+  }
 }

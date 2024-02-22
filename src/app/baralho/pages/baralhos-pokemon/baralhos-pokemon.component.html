@@ -1,14 +1,91 @@
 <div class="sample-column card-wrapper">
   <igx-card elevated class="custom-card">
+    <igx-card-header>
+      <h3 igxCardHeaderTitle class="text-center">Baralhos</h3>
+    </igx-card-header>
     <igx-card-content>
       <p *ngIf="baralhos.length === 0" class="text-center custom-text">
         Você ainda não criou nenhum baralho...
       </p>
+
+      <div class="px-4 pt-4" *ngIf="baralhos.length > 0">
+        <igx-grid
+          width="100%"
+          height="500px"
+          [primaryKey]="'id'"
+          [data]="baralhos"
+          [allowFiltering]="true"
+          [cellSelection]="'none'"
+        >
+          <igx-column [editable]="false" [width]="'20%'">
+            <ng-template igxCell let-cell="cell" let-val>
+              <button
+                igxEnd
+                igxRipple
+                igxButton="icon"
+                [igxRippleCentered]="true"
+              >
+                <igx-icon name="see" family="filter-icons"></igx-icon>
+              </button>
+              <button
+                igxEnd
+                igxRipple
+                igxButton="icon"
+                [igxRippleCentered]="true"
+              >
+                <igx-icon name="edit" family="filter-icons"></igx-icon>
+              </button>
+              <button
+                igxEnd
+                igxRipple
+                igxButton="icon"
+                [igxRippleCentered]="true"
+                (click)="confirmarExclusao(cell.id.rowID)"
+              >
+                <igx-icon name="delete" family="filter-icons"></igx-icon>
+              </button>
+            </ng-template>
+          </igx-column>
+          <igx-column
+            header="Nome"
+            [sortable]="true"
+            [width]="'80%'"
+            field="nomeBaralho"
+            [dataType]="'string'"
+          ></igx-column>
+        </igx-grid>
+      </div>
     </igx-card-content>
-    <igx-card-actions>
+    <igx-card-actions class="flex flex-nowrap flex-row-reverse">
       <button igxButton="outlined" igxRipple routerLink="criar-baralho">
         Criar Baralho
       </button>
     </igx-card-actions>
   </igx-card>
 </div>
+
+<div>
+  <igx-snackbar #snackbar></igx-snackbar>
+</div>
+
+<app-loading-component *ngIf="loading"></app-loading-component>
+
+<!-- MODAIS -->
+<!-- MODAL DELEÇÃO -->
+<app-modal *ngIf="showModalDelecao">
+  <div class="titulo-modal-custom">Tem certeza?</div>
+  <div class="conteudo-modal-custom">A ação não poderá ser desfeita</div>
+  <div class="funcoes-modal-custom flex flex-nowrap flex-row-reverse">
+    <button igxButton="outlined" igxRipple (click)="deletarBaralho()">
+      Sim, excluir!
+    </button>
+    <button
+      igxButton="outlined"
+      igxRipple
+      (click)="showModalDelecao = false"
+      class="mr-1"
+    >
+      Não!
+    </button>
+  </div>
+</app-modal>
