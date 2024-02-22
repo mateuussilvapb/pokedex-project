@@ -29,6 +29,7 @@
     margin: 0px !important;
     margin-bottom: rem-calc(20) !important;
   }
+
   ::ng-deep .conteudo-modal-custom {
     font-weight: 400;
     font-size: large;
@@ -40,6 +41,19 @@
       margin: rem-calc(15) 0;
     }
   }
+
+  ::ng-deep .image-modal-custom {
+    display: flex;
+    margin: 0px !important;
+    justify-content: center;
+    margin-bottom: rem-calc(30) !important;
+    .size-image-modal-custom {
+      border-radius: rem-calc(10);
+      width: 70%;
+      height: auto;
+    }
+  }
+
   ::ng-deep .funcoes-modal-custom {
     margin: 0px !important;
   }

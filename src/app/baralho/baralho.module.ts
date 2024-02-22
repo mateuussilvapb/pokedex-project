@@ -18,6 +18,7 @@ import {
   IgxSwitchModule,
   IgxButtonGroupModule,
   IgxToastModule,
+  IgxTooltipModule,
 } from 'igniteui-angular';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
@@ -50,6 +51,7 @@ import { VisualizarBaralhoComponent } from './pages/visualizar-baralho/visualiza
     IgxSwitchModule,
     IgxButtonGroupModule,
     IgxToastModule,
+    IgxTooltipModule,
   ],
 })
 export class BaralhoModule {}

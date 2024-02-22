@@ -35,9 +35,11 @@ export class CriarBaralhoComponent implements OnInit {
   public showModalAttacks = false;
   public showModalAbilities = false;
   public showModalWeaknesses = false;
+  public showModalCard = false;
   public attacks: Array<Attack> = [];
   public abilities: Array<Ability> = [];
   public weaknesses: Array<Weakness> = [];
+  public srcImageModal: string = '';
 
   private currentPage: number = 1;
 
@@ -76,7 +78,17 @@ export class CriarBaralhoComponent implements OnInit {
     }
   }
 
+  public showCard(link: string) {
+    this.srcImageModal = link;
+    console.log(this.srcImageModal);
+    this.showModalCard = true;
+  }
+
   public onSubmit() {
+    if (this.form.invalid) {
+      this.snackbar.open('O formulário está inválido!');
+      return;
+    }
     this.form.get('id').setValue(this.generateRandomId);
     if (localStorage.getItem('list-baralhos')) {
       const arrayBaralhos = [
@@ -91,7 +103,7 @@ export class CriarBaralhoComponent implements OnInit {
     this.snackbar.open('Baralho criado com sucesso!');
     setTimeout(() => {
       this.router.navigate(['']);
-    }, 5000);
+    }, 2000);
   }
 
   private findPokemonById(id: string): PokemonData | undefined {

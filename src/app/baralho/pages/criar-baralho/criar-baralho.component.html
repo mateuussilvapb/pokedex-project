@@ -43,6 +43,38 @@
               (rowSelectionChanging)="handleRowSelection($event)"
             >
               <igx-column
+                field="images"
+                header="Imagem"
+                [sortable]="true"
+                [dataType]="'string'"
+              >
+                <ng-template igxCell let-cell="cell" let-val>
+                  <button
+                    class="my-1"
+                    type="button"
+                    (click)="showCard(cell.row.data.images.large)"
+                  >
+                    <igx-avatar
+                      size="medium"
+                      shape="circle"
+                      [hideDelay]="500"
+                      #target="tooltipTarget"
+                      class="avatar avatar-custom"
+                      [igxTooltipTarget]="tooltipCarta"
+                      [src]="cell.row.data.images.small"
+                    >
+                    </igx-avatar>
+                  </button>
+                  <div
+                    class="locationTooltip"
+                    #tooltipCarta="tooltip"
+                    igxTooltip
+                  >
+                    Clique para visualizar a carta
+                  </div>
+                </ng-template>
+              </igx-column>
+              <igx-column
                 field="name"
                 header="Nome"
                 [sortable]="true"
@@ -177,6 +209,23 @@
       igxRipple
       (click)="showModalWeaknesses = false"
     >
+      Fechar
+    </button>
+  </div>
+</app-modal>
+
+<!-- MODAL CARD -->
+<app-modal *ngIf="showModalCard">
+  <div class="titulo-modal-custom">Carta</div>
+  <div class="image-modal-custom">
+    <img
+      [src]="srcImageModal"
+      alt="Imagem da Carta do Pokemón"
+      class="size-image-modal-custom"
+    />
+  </div>
+  <div class="funcoes-modal-custom">
+    <button igxButton="outlined" igxRipple (click)="showModalCard = false">
       Fechar
     </button>
   </div>
