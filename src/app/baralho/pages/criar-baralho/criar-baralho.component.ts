@@ -16,7 +16,6 @@ import {
 } from 'src/app/shared/model/pokemon';
 
 @Component({
-  selector: 'app-criar-baralho',
   templateUrl: './criar-baralho.component.html',
   styleUrls: ['./criar-baralho.component.scss'],
 })
