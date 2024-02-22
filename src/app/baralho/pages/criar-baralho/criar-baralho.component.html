@@ -37,11 +37,32 @@
               [data]="pokemonCards"
               [allowFiltering]="true"
               [cellSelection]="'none'"
-              [selectedRows]="selectedRows"
-              [rowSelection]="selectionMode"
-              [hideRowSelectors]="hideRowSelectors"
-              (rowSelectionChanging)="handleRowSelection($event)"
             >
+              <igx-column [editable]="false">
+                <ng-template igxCell let-cell="cell" let-val>
+                  <button
+                    igxEnd
+                    igxRipple
+                    type="button"
+                    igxButton="icon"
+                    [igxRippleCentered]="true"
+                    (click)="removeCard(cell.row.data)"
+                  >
+                    <igx-icon name="remove" family="filter-icons"></igx-icon>
+                  </button>
+                  {{ getQtdCartasBaralho(cell.row.data.name) }}
+                  <button
+                    igxEnd
+                    igxRipple
+                    type="button"
+                    igxButton="icon"
+                    [igxRippleCentered]="true"
+                    (click)="addCard(cell.row.data)"
+                  >
+                    <igx-icon name="add" family="filter-icons"></igx-icon>
+                  </button>
+                </ng-template>
+              </igx-column>
               <igx-column
                 field="images"
                 header="Imagem"
@@ -167,7 +188,12 @@
     </ul>
   </div>
   <div class="funcoes-modal-custom">
-    <button igxButton="outlined" igxRipple (click)="showModalAttacks = false">
+    <button
+      igxRipple
+      type="button"
+      igxButton="outlined"
+      (click)="showModalAttacks = false"
+    >
       Fechar
     </button>
   </div>
@@ -187,7 +213,12 @@
     </ul>
   </div>
   <div class="funcoes-modal-custom">
-    <button igxButton="outlined" igxRipple (click)="showModalAbilities = false">
+    <button
+      igxRipple
+      type="button"
+      igxButton="outlined"
+      (click)="showModalAbilities = false"
+    >
       Fechar
     </button>
   </div>
@@ -205,8 +236,9 @@
   </div>
   <div class="funcoes-modal-custom">
     <button
-      igxButton="outlined"
       igxRipple
+      type="button"
+      igxButton="outlined"
       (click)="showModalWeaknesses = false"
     >
       Fechar
@@ -225,7 +257,12 @@
     />
   </div>
   <div class="funcoes-modal-custom">
-    <button igxButton="outlined" igxRipple (click)="showModalCard = false">
+    <button
+      igxRipple
+      type="button"
+      igxButton="outlined"
+      (click)="showModalCard = false"
+    >
       Fechar
     </button>
   </div>

@@ -5,9 +5,10 @@ import { Router } from '@angular/router';
 import {
   GridSelectionMode,
   IRowSelectionEventArgs,
+  IgxIconService,
   IgxSnackbarComponent,
 } from 'igniteui-angular';
-import { finalize, take } from 'rxjs';
+import { BehaviorSubject, finalize, take } from 'rxjs';
 import {
   Ability,
   Attack,
@@ -29,9 +30,6 @@ export class CriarBaralhoComponent implements OnInit {
   );
   public pokemonCards: Array<PokemonData> = [];
   public loading: boolean = false;
-  public selectionMode: GridSelectionMode = 'multiple';
-  public selectedRows = [];
-  public hideRowSelectors = false;
   public showModalAttacks = false;
   public showModalAbilities = false;
   public showModalWeaknesses = false;
@@ -45,9 +43,17 @@ export class CriarBaralhoComponent implements OnInit {
 
   constructor(
     private readonly router: Router,
+    private iconService: IgxIconService,
     private readonly formBuilder: FormBuilder,
     private readonly pokemonService: PokemonService
-  ) {}
+  ) {
+    this.iconService.addSvgIcon('add', 'assets/icons/add.svg', 'filter-icons');
+    this.iconService.addSvgIcon(
+      'remove',
+      'assets/icons/remove.svg',
+      'filter-icons'
+    );
+  }
 
   ngOnInit(): void {
     this.initForm();
@@ -80,8 +86,43 @@ export class CriarBaralhoComponent implements OnInit {
 
   public showCard(link: string) {
     this.srcImageModal = link;
-    console.log(this.srcImageModal);
     this.showModalCard = true;
+  }
+
+  public addCard(card: PokemonData) {
+    if (this.getQtdCartasBaralho(card.name) === '4') {
+      return;
+    }
+    this.pokemonFormArray.push(this.createPokemonGroup(card));
+    this.pokemonFormArray.markAsDirty();
+    this.pokemonFormArray.updateValueAndValidity();
+  }
+
+  public removeCard(card: PokemonData) {
+    if (this.getQtdCartasBaralho(card.name) === '0') {
+      return;
+    }
+    const index = this.pokemonFormArray.controls.findIndex(
+      (item) => item.get('cardPokemon').value['name'] == card.name
+    );
+    debugger;
+    if (index != undefined && index != null && typeof index == 'number') {
+      this.pokemonFormArray.removeAt(index);
+    }
+  }
+
+  public getQtdCartasBaralho(name: string): string {
+    let contador = 0;
+    if (this.pokemonFormArray.length <= 0) {
+      return contador.toString();
+    }
+    this.pokemonFormArray.controls.forEach((item) => {
+      const idControl = item.get('cardPokemon');
+      if (idControl && idControl.value['name'] === name) {
+        contador++;
+      }
+    });
+    return contador.toString();
   }
 
   public onSubmit() {
@@ -108,15 +149,6 @@ export class CriarBaralhoComponent implements OnInit {
 
   private findPokemonById(id: string): PokemonData | undefined {
     return this.pokemonCards.find((card) => card.id == id);
-  }
-
-  public handleRowSelection(event: IRowSelectionEventArgs) {
-    this.pokemonFormArray.clear();
-    event.newSelection.forEach((item) => {
-      this.pokemonFormArray.push(this.createPokemonGroup(item));
-    });
-    this.pokemonFormArray.markAsDirty();
-    this.pokemonFormArray.updateValueAndValidity();
   }
 
   private createPokemonGroup(cardPokemon: PokemonData): FormGroup {
