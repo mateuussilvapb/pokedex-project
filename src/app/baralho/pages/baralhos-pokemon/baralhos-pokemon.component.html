@@ -71,22 +71,26 @@
 
 <app-loading-component *ngIf="loading"></app-loading-component>
 
-<!-- MODAIS -->
-<!-- MODAL DELEÇÃO -->
-<app-modal *ngIf="showModalDelecao">
-  <div class="titulo-modal-custom">Tem certeza?</div>
-  <div class="conteudo-modal-custom">A ação não poderá ser desfeita</div>
-  <div class="funcoes-modal-custom flex flex-nowrap flex-row-reverse">
-    <button igxButton="outlined" igxRipple (click)="deletarBaralho()">
-      Sim, excluir!
-    </button>
+<!-- DIALOGS -->
+<!-- DIALOG DELEÇÃO -->
+<igx-dialog #dialogDelecao [closeOnOutsideSelect]="true">
+  <igx-dialog-title>
+    <div class="flex">
+      <div class="dialog-title">Tem certeza?</div>
+    </div>
+  </igx-dialog-title>
+  <div>A ação não poderá ser desfeita.</div>
+  <igx-dialog-actions>
     <button
       igxButton="outlined"
       igxRipple
-      (click)="showModalDelecao = false"
+      (click)="dialogDelecao.close()"
       class="mr-1"
     >
       Não!
     </button>
-  </div>
-</app-modal>
+    <button igxButton="outlined" igxRipple (click)="deletarBaralho()">
+      Sim, excluir!
+    </button>
+  </igx-dialog-actions>
+</igx-dialog>

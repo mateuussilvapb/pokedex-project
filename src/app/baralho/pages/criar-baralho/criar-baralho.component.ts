@@ -3,12 +3,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import {
-  GridSelectionMode,
-  IRowSelectionEventArgs,
+  IgxDialogComponent,
   IgxIconService,
   IgxSnackbarComponent,
 } from 'igniteui-angular';
-import { BehaviorSubject, finalize, take } from 'rxjs';
+import { finalize, take } from 'rxjs';
 import {
   Ability,
   Attack,
@@ -23,6 +22,19 @@ import {
 export class CriarBaralhoComponent implements OnInit {
   @ViewChild(IgxSnackbarComponent, { static: true })
   public snackbar: IgxSnackbarComponent;
+
+  @ViewChild('dialogAtaques', { read: IgxDialogComponent, static: true })
+  public dialogAtaques: IgxDialogComponent;
+
+  @ViewChild('dialogHabilidades', { read: IgxDialogComponent, static: true })
+  public dialogHabilidades: IgxDialogComponent;
+
+  @ViewChild('dialogFraquezas', { read: IgxDialogComponent, static: true })
+  public dialogFraquezas: IgxDialogComponent;
+
+  @ViewChild('dialogCard', { read: IgxDialogComponent, static: true })
+  public dialogCard: IgxDialogComponent;
+
   public form: FormGroup;
   public readonly pokemonFormArray = new FormArray(
     [],
@@ -30,10 +42,6 @@ export class CriarBaralhoComponent implements OnInit {
   );
   public pokemonCards: Array<PokemonData> = [];
   public loading: boolean = false;
-  public showModalAttacks = false;
-  public showModalAbilities = false;
-  public showModalWeaknesses = false;
-  public showModalCard = false;
   public attacks: Array<Attack> = [];
   public abilities: Array<Ability> = [];
   public weaknesses: Array<Weakness> = [];
@@ -64,7 +72,7 @@ export class CriarBaralhoComponent implements OnInit {
     const pokemonSelected = this.findPokemonById(event.rowID);
     if (pokemonSelected && pokemonSelected.attacks) {
       this.attacks = pokemonSelected.attacks;
-      this.showModalAttacks = true;
+      this.dialogAtaques.open();
     }
   }
 
@@ -72,7 +80,7 @@ export class CriarBaralhoComponent implements OnInit {
     const pokemonSelected = this.findPokemonById(event.rowID);
     if (pokemonSelected && pokemonSelected.abilities) {
       this.abilities = pokemonSelected.abilities;
-      this.showModalAbilities = true;
+      this.dialogHabilidades.open();
     }
   }
 
@@ -80,13 +88,13 @@ export class CriarBaralhoComponent implements OnInit {
     const pokemonSelected = this.findPokemonById(event.rowID);
     if (pokemonSelected && pokemonSelected.weaknesses) {
       this.weaknesses = pokemonSelected.weaknesses;
-      this.showModalWeaknesses = true;
+      this.dialogFraquezas.open();
     }
   }
 
   public showCard(link: string) {
     this.srcImageModal = link;
-    this.showModalCard = true;
+    this.dialogCard.open();
   }
 
   public addCard(card: PokemonData) {
@@ -123,7 +131,6 @@ export class CriarBaralhoComponent implements OnInit {
     });
     return contador.toString();
   }
-
 
   public onSubmit() {
     if (this.form.invalid) {

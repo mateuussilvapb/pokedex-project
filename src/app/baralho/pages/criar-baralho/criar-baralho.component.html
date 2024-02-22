@@ -181,35 +181,43 @@
 
 <app-loading-component *ngIf="loading"></app-loading-component>
 
-<!-- MODAIS -->
-<!-- MODAL ATAQUES -->
-<app-modal *ngIf="showModalAttacks">
-  <div class="titulo-modal-custom">Ataques do Pokemón</div>
-  <div class="conteudo-modal-custom">
+<!-- DIALOGS -->
+<!-- DIALOG ATAQUES -->
+<igx-dialog #dialogAtaques [closeOnOutsideSelect]="true">
+  <igx-dialog-title>
+    <div class="flex">
+      <div class="dialog-title">Ataques do Pokemón</div>
+    </div>
+  </igx-dialog-title>
+  <div>
     <ul>
-      <li *ngFor="let attack of attacks" class="li-modal-custom">
+      <li *ngFor="let attack of attacks">
         {{ attack.name }}
       </li>
     </ul>
   </div>
-  <div class="funcoes-modal-custom">
+  <igx-dialog-actions>
     <button
       igxRipple
-      type="button"
+      class="mr-1"
       igxButton="outlined"
-      (click)="showModalAttacks = false"
+      (click)="dialogAtaques.close()"
     >
       Fechar
     </button>
-  </div>
-</app-modal>
+  </igx-dialog-actions>
+</igx-dialog>
 
-<!-- MODAL HABILIDADES -->
-<app-modal *ngIf="showModalAbilities">
-  <div class="titulo-modal-custom">Habilidades do Pokemón</div>
-  <div class="conteudo-modal-custom">
+<!-- DIALOG HABILIDADES -->
+<igx-dialog #dialogHabilidades [closeOnOutsideSelect]="true">
+  <igx-dialog-title>
+    <div class="flex">
+      <div class="dialog-title">Habilidades do Pokemón</div>
+    </div>
+  </igx-dialog-title>
+  <div>
     <ul>
-      <li *ngFor="let ability of abilities" class="li-modal-custom">
+      <li *ngFor="let ability of abilities">
         <div class="font-bold">
           {{ ability.name }}
         </div>
@@ -217,58 +225,66 @@
       </li>
     </ul>
   </div>
-  <div class="funcoes-modal-custom">
+  <igx-dialog-actions>
     <button
       igxRipple
-      type="button"
+      class="mr-1"
       igxButton="outlined"
-      (click)="showModalAbilities = false"
+      (click)="dialogHabilidades.close()"
     >
       Fechar
     </button>
-  </div>
-</app-modal>
+  </igx-dialog-actions>
+</igx-dialog>
 
-<!-- MODAL FRAQUEZAS -->
-<app-modal *ngIf="showModalWeaknesses">
-  <div class="titulo-modal-custom">Fraquezas do Pokemón</div>
-  <div class="conteudo-modal-custom">
+<!-- DIALOG FRAQUEZAS -->
+<igx-dialog #dialogFraquezas [closeOnOutsideSelect]="true">
+  <igx-dialog-title>
+    <div class="flex">
+      <div class="dialog-title">Fraquezas do Pokemón</div>
+    </div>
+  </igx-dialog-title>
+  <div>
     <ul>
-      <li *ngFor="let weakness of weaknesses" class="li-modal-custom">
+      <li *ngFor="let weakness of weaknesses">
         {{ weakness.type }}
       </li>
     </ul>
   </div>
-  <div class="funcoes-modal-custom">
+  <igx-dialog-actions>
     <button
       igxRipple
-      type="button"
+      class="mr-1"
       igxButton="outlined"
-      (click)="showModalWeaknesses = false"
+      (click)="dialogFraquezas.close()"
     >
       Fechar
     </button>
-  </div>
-</app-modal>
+  </igx-dialog-actions>
+</igx-dialog>
 
-<!-- MODAL CARD -->
-<app-modal *ngIf="showModalCard">
-  <div class="titulo-modal-custom">Carta</div>
-  <div class="image-modal-custom">
+<!-- DIALOG CARD -->
+<igx-dialog #dialogCard [closeOnOutsideSelect]="true">
+  <igx-dialog-title>
+    <div class="flex">
+      <div class="dialog-title">Carta</div>
+    </div>
+  </igx-dialog-title>
+  <div class="flex flex-row justify-center">
     <img
       [src]="srcImageModal"
+      class="rounded-lg w-4/6 h-auto"
       alt="Imagem da Carta do Pokemón"
-      class="size-image-modal-custom"
     />
   </div>
-  <div class="funcoes-modal-custom">
+  <igx-dialog-actions>
     <button
       igxRipple
-      type="button"
+      class="mr-1"
       igxButton="outlined"
-      (click)="showModalCard = false"
+      (click)="dialogCard.close()"
     >
       Fechar
     </button>
-  </div>
-</app-modal>
+  </igx-dialog-actions>
+</igx-dialog>

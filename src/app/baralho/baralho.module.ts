@@ -22,7 +22,6 @@ import {
 } from 'igniteui-angular';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
-import { ModalComponent } from './components/modal-attacks/modal.component';
 import { VisualizarBaralhoComponent } from './pages/visualizar-baralho/visualizar-baralho.component';
 import { InfoCardPokemonComponent } from './components/info-card-pokemon/info-card-pokemon.component';
 
@@ -30,7 +29,6 @@ import { InfoCardPokemonComponent } from './components/info-card-pokemon/info-ca
   declarations: [
     CriarBaralhoComponent,
     BaralhosPokemonComponent,
-    ModalComponent,
     VisualizarBaralhoComponent,
     InfoCardPokemonComponent,
   ],

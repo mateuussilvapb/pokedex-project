@@ -1,6 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
-import { IgxIconService, IgxSnackbarComponent } from 'igniteui-angular';
+import {
+  IgxDialogComponent,
+  IgxIconService,
+  IgxSnackbarComponent,
+} from 'igniteui-angular';
 import { Baralho } from 'src/app/shared/model/baralho';
 
 @Component({
@@ -10,9 +14,10 @@ import { Baralho } from 'src/app/shared/model/baralho';
 export class BaralhosPokemonComponent implements OnInit {
   @ViewChild(IgxSnackbarComponent, { static: true })
   public snackbar: IgxSnackbarComponent;
+  @ViewChild('dialogDelecao', { read: IgxDialogComponent, static: true })
+  public dialogDelecao: IgxDialogComponent;
   public loading: boolean = false;
   public baralhos: Array<Baralho> = [];
-  public showModalDelecao: boolean = false;
   public idParaDelecao: string = '';
 
   constructor(
@@ -38,7 +43,7 @@ export class BaralhosPokemonComponent implements OnInit {
 
   public confirmarExclusao(id: string) {
     this.idParaDelecao = id;
-    this.showModalDelecao = true;
+    this.dialogDelecao.open();
   }
 
   public deletarBaralho() {
@@ -46,7 +51,7 @@ export class BaralhosPokemonComponent implements OnInit {
       (item) => item.id !== this.idParaDelecao
     );
     localStorage.setItem('list-baralhos', JSON.stringify(this.baralhos));
-    this.showModalDelecao = false;
+    this.dialogDelecao.close();
     this.snackbar.open('Baralho removido com sucesso!');
     this.consultarBaralhos();
   }
