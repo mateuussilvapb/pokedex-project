@@ -78,7 +78,16 @@ export class CriarBaralhoComponent implements OnInit {
 
   public onSubmit() {
     this.form.get('id').setValue(this.generateRandomId);
-    localStorage.setItem('list-baralhos', JSON.stringify(this.form.value));
+    if (localStorage.getItem('list-baralhos')) {
+      const arrayBaralhos = [
+        ...JSON.parse(localStorage.getItem('list-baralhos')),
+        this.form.value,
+      ];
+      localStorage.setItem('list-baralhos', JSON.stringify(arrayBaralhos));
+    } else {
+      const arrayBaralhos = [this.form.value];
+      localStorage.setItem('list-baralhos', JSON.stringify(arrayBaralhos));
+    }
     this.snackbar.open('Baralho criado com sucesso!');
     setTimeout(() => {
       this.router.navigate(['']);
