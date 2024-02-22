@@ -105,7 +105,6 @@ export class CriarBaralhoComponent implements OnInit {
     const index = this.pokemonFormArray.controls.findIndex(
       (item) => item.get('cardPokemon').value['name'] == card.name
     );
-    debugger;
     if (index != undefined && index != null && typeof index == 'number') {
       this.pokemonFormArray.removeAt(index);
     }
