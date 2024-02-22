@@ -14,7 +14,7 @@
   }
   45%,
   55% {
-    width: 5.8rem;
+    width: 7rem;
   }
   90%,
   100% {
@@ -31,8 +31,8 @@
 .overlay {
   top: 0;
   left: 0;
-  background-color: rgba(0, 0, 0, 0.3); /* Cor de fundo preto transparente */
-  z-index: 1000; /* Ajuste a ordem de sobreposição conforme necessário */
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 1000;
   display: none;
 }
 
@@ -43,7 +43,7 @@
 .container-spinner {
   top: 50%;
   left: 50%;
-  z-index: 1001; /* Ajuste a ordem de sobreposição conforme necessário */
+  z-index: 1001;
   position: fixed;
   transform: translate(-50%, -50%);
 }
@@ -53,9 +53,9 @@
 }
 
 .custom-text-loading {
-  color: #ffffff;
-  text-shadow: -1px -1px 0px #000, -1px 1px 0px #000, 1px -1px 0px #000,
-    1px 0px 0px #000;
+  color: #ff3d00;
+  text-shadow: -1px -1px 0px #37474f, -1px 1px 0px #37474f, 1px -1px 0px #37474f,
+    1px 0px 0px #37474f;
   display: inline-block;
   white-space: nowrap;
   overflow: hidden;
