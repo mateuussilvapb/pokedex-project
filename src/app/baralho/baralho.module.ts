@@ -24,6 +24,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { VisualizarBaralhoComponent } from './pages/visualizar-baralho/visualizar-baralho.component';
 import { InfoCardPokemonComponent } from './components/info-card-pokemon/info-card-pokemon.component';
+import { EditarBaralhoComponent } from './pages/editar-baralho/editar-baralho.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { InfoCardPokemonComponent } from './components/info-card-pokemon/info-ca
     BaralhosPokemonComponent,
     VisualizarBaralhoComponent,
     InfoCardPokemonComponent,
+    EditarBaralhoComponent,
   ],
   imports: [
     ReactiveFormsModule,

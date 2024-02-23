@@ -1,26 +1,26 @@
-import { PokemonService } from './../../service/pokemon.service';
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   IgxDialogComponent,
-  IgxGridComponent,
   IgxIconService,
   IgxSnackbarComponent,
 } from 'igniteui-angular';
-import { BehaviorSubject, finalize, take, tap } from 'rxjs';
+import { tap } from 'rxjs';
 import {
   Ability,
   Attack,
   PokemonData,
   Weakness,
 } from 'src/app/shared/model/pokemon';
+import { PokemonService } from '../../service/pokemon.service';
+import { Baralho } from 'src/app/shared/model/baralho';
 
 @Component({
-  templateUrl: './criar-baralho.component.html',
-  styleUrls: ['./criar-baralho.component.scss'],
+  templateUrl: './editar-baralho.component.html',
+  styleUrls: ['./editar-baralho.component.scss'],
 })
-export class CriarBaralhoComponent implements OnInit {
+export class EditarBaralhoComponent {
   @ViewChild(IgxSnackbarComponent, { static: true })
   public snackbar: IgxSnackbarComponent;
 
@@ -38,6 +38,9 @@ export class CriarBaralhoComponent implements OnInit {
 
   @ViewChild('dialogTipos', { read: IgxDialogComponent, static: true })
   public dialogTipos: IgxDialogComponent;
+
+  @ViewChild('dialogLimpar', { read: IgxDialogComponent, static: true })
+  public dialogLimpar: IgxDialogComponent;
 
   public form: FormGroup;
   public readonly pokemonFormArray = new FormArray(
@@ -57,7 +60,8 @@ export class CriarBaralhoComponent implements OnInit {
   constructor(
     private readonly router: Router,
     private cdRef: ChangeDetectorRef,
-    private iconService: IgxIconService,
+    private readonly iconService: IgxIconService,
+    private readonly route: ActivatedRoute,
     private readonly formBuilder: FormBuilder,
     private readonly pokemonService: PokemonService
   ) {
@@ -71,6 +75,11 @@ export class CriarBaralhoComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
+    const baralho = this.consultarBaralho();
+    if (baralho) {
+      this.preencherFormularios(baralho);
+      this.preencherPokemonCards(baralho);
+    }
     this.consultarPokemons();
   }
 
@@ -173,32 +182,36 @@ export class CriarBaralhoComponent implements OnInit {
     return [];
   }
 
+  public onClickLimparBaralho() {
+    this.dialogLimpar.open();
+  }
+
+  public limparBaralho() {
+    this.pokemonFormArray.clear();
+    this.dialogLimpar.close();
+  }
+
   public onSubmit() {
     if (this.form.invalid) {
       this.snackbar.open('O formulário está inválido!');
       return;
     }
-    this.form.get('id').setValue(this.generateRandomId);
-    if (localStorage.getItem('list-baralhos')) {
-      const arrayBaralhos = [
-        ...JSON.parse(localStorage.getItem('list-baralhos')),
-        this.form.value,
-      ];
-      localStorage.setItem('list-baralhos', JSON.stringify(arrayBaralhos));
-      this.snackbar.open('Baralho criado com sucesso!');
-      setTimeout(() => {
-        this.router.navigate(['']);
-      }, 2000);
-      return;
-    } else {
-      const arrayBaralhos = [this.form.value];
-      localStorage.setItem('list-baralhos', JSON.stringify(arrayBaralhos));
-      this.snackbar.open('Baralho criado com sucesso!');
-      setTimeout(() => {
-        this.router.navigate(['']);
-      }, 2000);
-      return;
+    let baralhos = this.todosBaralhos;
+    if (baralhos) {
+      const indexBaralho = baralhos.findIndex(
+        (baralho) => baralho.id === this.form.get('id').value
+      );
+      if (indexBaralho != null && indexBaralho != undefined) {
+        baralhos[indexBaralho] = this.form.value;
+        localStorage.setItem('list-baralhos', JSON.stringify(baralhos));
+        this.snackbar.open('Baralho editado com sucesso!');
+        setTimeout(() => {
+          this.router.navigate(['']);
+        }, 2000);
+        return;
+      }
     }
+    this.snackbar.open('Houve um erro inesperado ao editar o baralho...');
   }
 
   private findPokemonById(id: string): PokemonData | undefined {
@@ -208,10 +221,12 @@ export class CriarBaralhoComponent implements OnInit {
         cardEncontrado = card;
       }
     });
+
     return cardEncontrado;
   }
 
   private createPokemonGroup(cardPokemon: PokemonData): FormGroup {
+    debugger;
     const group: { [key: string]: any } = {};
     for (const key in cardPokemon) {
       if (cardPokemon.hasOwnProperty(key)) {
@@ -235,7 +250,9 @@ export class CriarBaralhoComponent implements OnInit {
         next: (response) => {
           if (response && response.data) {
             response.data.forEach((card) => {
-              this.pokemonCards.add(card);
+              if (!this.verifyIsPresent(card)) {
+                this.pokemonCards.add(card);
+              }
             });
           }
           this.currentPage++;
@@ -255,9 +272,46 @@ export class CriarBaralhoComponent implements OnInit {
     });
   }
 
-  private get generateRandomId(): string {
-    const timestamp = new Date().getTime().toString(16);
-    const random = (Math.random() * 1000000).toString(16);
-    return timestamp + random;
+  private consultarBaralho(): Baralho {
+    const idBaralho = this.route.snapshot.params['id'];
+    if (idBaralho != null && idBaralho != undefined) {
+      const baralhos = this.todosBaralhos;
+      if (baralhos) {
+        const baralho: Baralho = baralhos.find((item) => item.id == idBaralho);
+        return baralho;
+      }
+    }
+    return undefined;
+  }
+
+  private get todosBaralhos(): Array<Baralho> {
+    return JSON.parse(localStorage.getItem('list-baralhos')) as Array<Baralho>;
+  }
+
+  private preencherFormularios(baralho: Baralho) {
+    this.form.get('id').setValue(baralho.id);
+    this.form.get('nomeBaralho').setValue(baralho.nomeBaralho);
+    baralho.cartas.forEach((carta) => {
+      this.pokemonFormArray.controls.push(this.createPokemonGroup(carta));
+    });
+    this.form.updateValueAndValidity();
+  }
+
+  private preencherPokemonCards(baralho: Baralho) {
+    baralho.cartas.forEach((carta) => {
+      if (!this.verifyIsPresent(carta)) {
+        this.pokemonCards.add(carta);
+      }
+    });
+  }
+
+  private verifyIsPresent(card: PokemonData): boolean {
+    let isPresent: boolean = false;
+    this.pokemonCards.forEach((cardList) => {
+      if (cardList.name === card.name) {
+        isPresent = true;
+      }
+    });
+    return isPresent;
   }
 }

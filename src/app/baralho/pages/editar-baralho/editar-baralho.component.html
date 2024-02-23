@@ -2,7 +2,7 @@
   <div class="sample-column card-wrapper">
     <igx-card elevated>
       <igx-card-header>
-        <h3 igxCardHeaderTitle class="text-center">Criar Baralho</h3>
+        <h3 igxCardHeaderTitle class="text-center">Editar Baralho</h3>
       </igx-card-header>
       <igx-card-content>
         <igx-input-group>
@@ -202,16 +202,30 @@
         <button
           igxRipple
           igxStart
+          type="button"
+          igxButton="outlined"
+          [hideDelay]="500"
+          [igxTooltipTarget]="tooltipLimparBaralho"
+          (click)="onClickLimparBaralho()"
+        >
+          Limpar Baralho
+        </button>
+        <div igxTooltip #tooltipLimparBaralho="tooltip">
+          Clique para remover todas as cartas do baralho
+        </div>
+        <button
+          igxRipple
+          igxStart
           type="submit"
           igxButton="outlined"
           [disabled]="form.invalid"
           [hideDelay]="500"
           [igxTooltipTarget]="tooltipCriarBaralho"
         >
-          Criar Baralho
+          Editar Baralho
         </button>
         <div igxTooltip #tooltipCriarBaralho="tooltip">
-          Clique para finalizar a criação do baralho
+          Clique para finalizar a edição do baralho
         </div>
       </igx-card-actions>
     </igx-card>
@@ -369,6 +383,43 @@
     >
       Fechar
     </button>
+  </igx-dialog-actions>
+</igx-dialog>
+
+<!-- DIALOG LIMPAR -->
+<igx-dialog #dialogLimpar [closeOnOutsideSelect]="true">
+  <igx-dialog-title>
+    <div class="flex">
+      <div class="dialog-title">Tem certeza?</div>
+    </div>
+  </igx-dialog-title>
+  <div>A ação não poderá ser desfeita.</div>
+  <igx-dialog-actions>
+    <button
+      igxButton="outlined"
+      igxRipple
+      (click)="dialogLimpar.close()"
+      class="mr-1"
+      [hideDelay]="500"
+      [igxTooltipTarget]="tooltipBtnCancelarExclusao"
+    >
+      Não!
+    </button>
+    <div #tooltipBtnCancelarExclusao="tooltip" igxTooltip>
+      Clique para cancelar a exclusão
+    </div>
+    <button
+      igxButton="outlined"
+      igxRipple
+      (click)="limparBaralho()"
+      [hideDelay]="500"
+      [igxTooltipTarget]="tooltipBtnConfirmarExclusao"
+    >
+      Sim, limpar!
+    </button>
+    <div #tooltipBtnConfirmarExclusao="tooltip" igxTooltip>
+      Clique para confirmar a ação
+    </div>
   </igx-dialog-actions>
 </igx-dialog>
 

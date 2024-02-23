@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { BaralhosPokemonComponent } from './pages/baralhos-pokemon/baralhos-pokemon.component';
 import { CriarBaralhoComponent } from './pages/criar-baralho/criar-baralho.component';
 import { VisualizarBaralhoComponent } from './pages/visualizar-baralho/visualizar-baralho.component';
+import { EditarBaralhoComponent } from './pages/editar-baralho/editar-baralho.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,10 @@ const routes: Routes = [
   {
     path: 'visualizar-baralho/:id',
     component: VisualizarBaralhoComponent,
+  },
+  {
+    path: 'editar-baralho/:id',
+    component: EditarBaralhoComponent,
   },
 ];
 

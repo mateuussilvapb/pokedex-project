@@ -38,6 +38,7 @@
                 igxRipple
                 igxButton="icon"
                 [igxRippleCentered]="true"
+                (click)="editarBaralho(cell.row.data.id)"
                 [hideDelay]="500"
                 [igxTooltipTarget]="tooltipBtnEditarBaralho"
               >

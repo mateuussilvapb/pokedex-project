@@ -18,7 +18,7 @@ export class VisualizarBaralhoComponent implements OnInit {
   public get qtdCartasPokemons(): number {
     if (this.baralho) {
       const pokemons = this.baralho.cartas.filter(
-        (carta) => carta['cardPokemon'].supertype === 'Pokémon'
+        (carta) => carta.supertype === 'Pokémon'
       );
       return pokemons.length;
     }
@@ -28,7 +28,7 @@ export class VisualizarBaralhoComponent implements OnInit {
   public get qtdCartasTreinadores(): number {
     if (this.baralho) {
       const pokemons = this.baralho.cartas.filter(
-        (carta) => carta['cardPokemon'].supertype === 'Trainer'
+        (carta) => carta.supertype === 'Trainer'
       );
       return pokemons.length;
     }
@@ -38,8 +38,8 @@ export class VisualizarBaralhoComponent implements OnInit {
   public get tiposUnicos(): Set<string> {
     const tipos = new Set<string>();
     this.baralho.cartas.forEach((carta) => {
-      if (carta['cardPokemon'].types) {
-        carta['cardPokemon'].types.forEach((tipo) => {
+      if (carta.types) {
+        carta.types.forEach((tipo) => {
           tipos.add(tipo);
         });
       }

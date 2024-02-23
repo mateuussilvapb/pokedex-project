@@ -60,6 +60,10 @@ export class BaralhosPokemonComponent implements OnInit {
     this.router.navigate([`visualizar-baralho/${id}`]);
   }
 
+  public editarBaralho(id: string) {
+    this.router.navigate([`editar-baralho/${id}`]);
+  }
+
   private consultarBaralhos() {
     this.loading = true;
     const baralhosLocalStorage = JSON.parse(

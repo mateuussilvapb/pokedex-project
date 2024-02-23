@@ -20,9 +20,7 @@
     <igx-card-content>
       <div class="content-card-baralho-custom">
         <div *ngFor="let carta of baralho.cartas">
-          <app-info-card-pokemon
-            [carta]="carta['cardPokemon']"
-          ></app-info-card-pokemon>
+          <app-info-card-pokemon [carta]="carta"></app-info-card-pokemon>
         </div>
       </div>
     </igx-card-content>
