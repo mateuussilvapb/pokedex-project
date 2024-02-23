@@ -112,7 +112,7 @@ export class CriarBaralhoComponent implements OnInit {
   }
 
   public addCard(card: PokemonData) {
-    if (this.getQtdCartasBaralho(card.name) === '4') {
+    if (this.getQtdCartasBaralhoByName(card.name) === '4') {
       return;
     }
     this.pokemonFormArray.push(this.createPokemonGroup(card));
@@ -121,7 +121,7 @@ export class CriarBaralhoComponent implements OnInit {
   }
 
   public removeCard(card: PokemonData) {
-    if (this.getQtdCartasBaralho(card.name) === '0') {
+    if (this.getQtdCartasBaralhoByName(card.name) === '0') {
       return;
     }
     const index = this.pokemonFormArray.controls.findIndex(
@@ -132,13 +132,26 @@ export class CriarBaralhoComponent implements OnInit {
     }
   }
 
-  public getQtdCartasBaralho(name: string): string {
+  private getQtdCartasBaralhoByName(name: string): string {
     let contador = 0;
     if (this.pokemonFormArray.length <= 0) {
       return contador.toString();
     }
     this.pokemonFormArray.controls.forEach((item) => {
       if (item.get('name') && item.get('name').value === name) {
+        contador++;
+      }
+    });
+    return contador.toString();
+  }
+
+  public getQtdCartasBaralhoById(id: string): string {
+    let contador = 0;
+    if (this.pokemonFormArray.length <= 0) {
+      return contador.toString();
+    }
+    this.pokemonFormArray.controls.forEach((item) => {
+      if (item.get('id') && item.get('id').value === id) {
         contador++;
       }
     });
