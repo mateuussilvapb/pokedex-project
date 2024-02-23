@@ -131,6 +131,13 @@
               ]
             }
           }
+        },
+        "gh-pages": {
+          "builder": "angular-cli-ghpahes:deploy",
+          "options": {
+            "baseHref": "/pokedex-project",
+            "dir": "dist/pokedex-project"
+          }
         }
       }
     }
