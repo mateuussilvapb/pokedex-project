@@ -35,6 +35,9 @@ export class CriarBaralhoComponent implements OnInit {
   @ViewChild('dialogCard', { read: IgxDialogComponent, static: true })
   public dialogCard: IgxDialogComponent;
 
+  @ViewChild('dialogTipos', { read: IgxDialogComponent, static: true })
+  public dialogTipos: IgxDialogComponent;
+
   public form: FormGroup;
   public readonly pokemonFormArray = new FormArray(
     [],
@@ -45,6 +48,7 @@ export class CriarBaralhoComponent implements OnInit {
   public attacks: Array<Attack> = [];
   public abilities: Array<Ability> = [];
   public weaknesses: Array<Weakness> = [];
+  public types: Array<string> = [];
   public srcImageModal: string = '';
 
   private currentPage: number = 1;
@@ -95,6 +99,14 @@ export class CriarBaralhoComponent implements OnInit {
   public showCard(link: string) {
     this.srcImageModal = link;
     this.dialogCard.open();
+  }
+
+  public showTypes(event: any) {
+    const pokemonSelected = this.findPokemonById(event.rowID);
+    if (pokemonSelected && pokemonSelected.types) {
+      this.types = pokemonSelected.types;
+      this.dialogTipos.open();
+    }
   }
 
   public addCard(card: PokemonData) {

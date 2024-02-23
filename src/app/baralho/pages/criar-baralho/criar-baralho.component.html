@@ -107,6 +107,15 @@
                 header="HP"
                 [dataType]="'string'"
               ></igx-column>
+              <igx-column header="Tipos" [dataType]="'string'">
+                <ng-template igxCell let-cell="cell" let-val>
+                  <i
+                    (click)="showTypes(cell.id)"
+                    class="cursor-pointer justify-center text-2xl"
+                    >...</i
+                  >
+                </ng-template>
+              </igx-column>
               <igx-column header="Ataques" [dataType]="'string'">
                 <ng-template igxCell let-cell="cell" let-val>
                   <i
@@ -184,6 +193,32 @@
 <app-loading-component *ngIf="loading"></app-loading-component>
 
 <!-- DIALOGS -->
+<!-- DIALOG TIPOS -->
+<igx-dialog #dialogTipos [closeOnOutsideSelect]="true">
+  <igx-dialog-title>
+    <div class="flex">
+      <div class="dialog-title">Tipos do Pokemón</div>
+    </div>
+  </igx-dialog-title>
+  <div>
+    <ul>
+      <li *ngFor="let tipo of types">
+        {{ tipo }}
+      </li>
+    </ul>
+  </div>
+  <igx-dialog-actions>
+    <button
+      igxRipple
+      class="mr-1"
+      igxButton="outlined"
+      (click)="dialogTipos.close()"
+    >
+      Fechar
+    </button>
+  </igx-dialog-actions>
+</igx-dialog>
+
 <!-- DIALOG ATAQUES -->
 <igx-dialog #dialogAtaques [closeOnOutsideSelect]="true">
   <igx-dialog-title>
