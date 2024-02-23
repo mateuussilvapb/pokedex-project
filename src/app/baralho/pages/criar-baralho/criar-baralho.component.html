@@ -15,14 +15,15 @@
           <label igxLabel for="nomeBaralho">Nome Do Baralho</label>
         </igx-input-group>
         <div
-          class="validate-message text-xs"
           *ngIf="
             (this.form.get('nomeBaralho').dirty ||
               this.form.get('nomeBaralho').touched) &&
             this.form.get('nomeBaralho').invalid
           "
         >
-          <span>Você precisa informar um nome para o baralho.</span>
+          <span class="validate-message text-xs"
+            >Você precisa informar um nome para o baralho.</span
+          >
         </div>
         <div class="pt-10">
           <h6 class="text-center text-xl font-medium">
@@ -80,7 +81,7 @@
                       shape="circle"
                       [hideDelay]="500"
                       #target="tooltipTarget"
-                      class="avatar avatar-custom"
+                      class="avatar cursor-pointer"
                       [igxTooltipTarget]="tooltipCarta"
                       [src]="cell.row.data.images.small"
                     >
@@ -110,7 +111,7 @@
                 <ng-template igxCell let-cell="cell" let-val>
                   <i
                     (click)="showAttacks(cell.id)"
-                    class="custom-i justify-center text-2xl"
+                    class="cursor-pointer justify-center text-2xl"
                     >...</i
                   >
                 </ng-template>
@@ -119,7 +120,7 @@
                 <ng-template igxCell let-val let-cell="cell">
                   <i
                     (click)="showAbilities(cell.id)"
-                    class="custom-i justify-center text-2xl"
+                    class="cursor-pointer justify-center text-2xl"
                     >...</i
                   >
                 </ng-template>
@@ -128,7 +129,7 @@
                 <ng-template igxCell let-cell="cell" let-val>
                   <i
                     (click)="showWeaknesses(cell.id)"
-                    class="custom-i justify-center text-2xl"
+                    class="cursor-pointer justify-center text-2xl"
                     >...</i
                   >
                 </ng-template>
@@ -137,8 +138,9 @@
           </div>
         </div>
         <div class="flex flex-row flex-nowrap justify-between px-4">
-          <div class="validate-message text-xs">
+          <div>
             <span
+              class="validate-message text-xs"
               *ngIf="
                 this.pokemonFormArray.dirty && this.pokemonFormArray.invalid
               "
