@@ -1,13 +1,14 @@
 import { PokemonService } from './../../service/pokemon.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import {
   IgxDialogComponent,
+  IgxGridComponent,
   IgxIconService,
   IgxSnackbarComponent,
 } from 'igniteui-angular';
-import { finalize, take } from 'rxjs';
+import { BehaviorSubject, finalize, take, tap } from 'rxjs';
 import {
   Ability,
   Attack,
@@ -43,7 +44,7 @@ export class CriarBaralhoComponent implements OnInit {
     [],
     [Validators.required, Validators.maxLength(60), Validators.minLength(24)]
   );
-  public pokemonCards: Array<PokemonData> = [];
+  public pokemonCards: Set<PokemonData> = new Set<PokemonData>();
   public loading: boolean = false;
   public attacks: Array<Attack> = [];
   public abilities: Array<Ability> = [];
@@ -55,6 +56,7 @@ export class CriarBaralhoComponent implements OnInit {
 
   constructor(
     private readonly router: Router,
+    private cdRef: ChangeDetectorRef,
     private iconService: IgxIconService,
     private readonly formBuilder: FormBuilder,
     private readonly pokemonService: PokemonService
@@ -144,6 +146,34 @@ export class CriarBaralhoComponent implements OnInit {
     return contador.toString();
   }
 
+  public gridScroll(action: any) {
+    const scrollHeight = action.event.target.scrollHeight;
+    const scrollTop = action.event.target.scrollTop;
+    const clientHeight = action.event.target.clientHeight;
+    if (
+      !this.loading &&
+      action.direction === 'vertical' &&
+      scrollHeight - scrollTop <= clientHeight + 100
+    ) {
+      this.consultarPokemons();
+    }
+  }
+
+  public onCloseDialogCard() {
+    this.srcImageModal = '';
+  }
+
+  public get setToArray(): Array<PokemonData> {
+    if (this.pokemonCards.size > 0) {
+      const pokemonDataArray: Array<PokemonData> = [];
+      this.pokemonCards.forEach((card) => {
+        pokemonDataArray.push(card);
+      });
+      return pokemonDataArray;
+    }
+    return [];
+  }
+
   public onSubmit() {
     if (this.form.invalid) {
       this.snackbar.open('O formulário está inválido!');
@@ -167,7 +197,14 @@ export class CriarBaralhoComponent implements OnInit {
   }
 
   private findPokemonById(id: string): PokemonData | undefined {
-    return this.pokemonCards.find((card) => card.id == id);
+    let cardEncontrado = undefined;
+    this.pokemonCards.forEach((card) => {
+      if (card.id == id) {
+        cardEncontrado = card;
+      }
+    });
+
+    return cardEncontrado;
   }
 
   private createPokemonGroup(cardPokemon: PokemonData): FormGroup {
@@ -179,18 +216,19 @@ export class CriarBaralhoComponent implements OnInit {
   private consultarPokemons() {
     this.loading = true;
     this.pokemonService
-      .getAllPokemons()
+      .getAllPokemonsPaginate(this.currentPage)
       .pipe(
-        take(1),
-        finalize(() => (this.loading = false))
+        tap(() => {
+          this.loading = false;
+          this.cdRef.detectChanges();
+        })
       )
       .subscribe({
         next: (response) => {
-          this.loading = false;
-          if (this.pokemonCards.length === 0) {
-            this.pokemonCards = response.data;
-          } else {
-            this.pokemonCards = [...this.pokemonCards, ...response.data];
+          if (response && response.data) {
+            response.data.forEach((card) => {
+              this.pokemonCards.add(card);
+            });
           }
           this.currentPage++;
         },

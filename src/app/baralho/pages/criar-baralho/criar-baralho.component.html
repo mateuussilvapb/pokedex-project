@@ -35,9 +35,10 @@
               width="100%"
               height="500px"
               [primaryKey]="'id'"
-              [data]="pokemonCards"
+              [data]="setToArray"
               [allowFiltering]="true"
               [cellSelection]="'none'"
+              (gridScroll)="gridScroll($event)"
             >
               <igx-column [editable]="false">
                 <ng-template igxCell let-cell="cell" let-val>
@@ -301,7 +302,11 @@
 </igx-dialog>
 
 <!-- DIALOG CARD -->
-<igx-dialog #dialogCard [closeOnOutsideSelect]="true">
+<igx-dialog
+  #dialogCard
+  [closeOnOutsideSelect]="true"
+  (closed)="onCloseDialogCard()"
+>
   <igx-dialog-title>
     <div class="flex">
       <div class="dialog-title">Carta</div>

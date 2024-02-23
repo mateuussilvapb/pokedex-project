@@ -19,7 +19,7 @@ export class PokemonService {
   ): Observable<ResponsePokemonCards> {
     const headers = new HttpHeaders().set('X-Api-Key', this.apiKey);
     let params = new HttpParams()
-      .set('pageSize', '12')
+      .set('pageSize', '250')
       .set('page', page.toString());
     return this.http.get<ResponsePokemonCards>(`${this.apiUrl}/cards`, {
       headers,
