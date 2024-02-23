@@ -346,18 +346,13 @@
   [closeOnOutsideSelect]="true"
   (closed)="onCloseDialogCard()"
 >
-  <igx-dialog-title>
-    <div class="flex">
-      <div class="dialog-title">Carta</div>
-    </div>
-  </igx-dialog-title>
-  <div class="flex flex-row justify-center">
+  <igx-dialog-title class="flex flex-row justify-center p-4 pb-0">
     <img
       [src]="srcImageModal"
-      class="rounded-lg w-4/6 h-auto"
+      class="rounded-lg custom-altura-imagem"
       alt="Imagem da Carta do Pokemón"
     />
-  </div>
+  </igx-dialog-title>
   <igx-dialog-actions>
     <button
       igxRipple
