@@ -1,172 +1,180 @@
 export interface ResponsePokemonCards {
-  data: PokemonData[]
-  page: number
-  pageSize: number
-  count: number
-  totalCount: number
+  data: PokemonData[];
+  page: number;
+  pageSize: number;
+  count: number;
+  totalCount: number;
 }
 
 export interface PokemonData {
-  id: string
-  name: string
-  supertype: string
-  subtypes: string[]
-  level?: string
-  hp: string
-  types: string[]
-  evolvesFrom?: string
-  abilities?: Ability[]
-  attacks?: Attack[]
-  weaknesses?: Weakness[]
-  resistances?: Resistance[]
-  retreatCost?: string[]
-  convertedRetreatCost?: number
-  set: Set
-  number: string
-  artist: string
-  rarity?: string
-  flavorText?: string
-  nationalPokedexNumbers: number[]
-  legalities: Legalities2
-  images: Images2
-  tcgplayer?: Tcgplayer
-  cardmarket?: Cardmarket
-  evolvesTo?: string[]
-  rules?: string[]
-  regulationMark?: string
+  id: string;
+  name: string;
+  supertype: string;
+  subtypes: string[];
+  level?: string;
+  hp?: string;
+  types?: string[];
+  evolvesFrom?: string;
+  abilities?: Ability[];
+  attacks?: Attack[];
+  weaknesses?: Weakness[];
+  resistances?: Resistance[];
+  retreatCost?: string[];
+  convertedRetreatCost?: number;
+  set: Set;
+  number: string;
+  artist: string;
+  rarity?: string;
+  nationalPokedexNumbers?: number[];
+  legalities: Legalities2;
+  images: Images2;
+  tcgplayer?: Tcgplayer;
+  cardmarket?: Cardmarket;
+  evolvesTo?: string[];
+  flavorText?: string;
+  regulationMark?: string;
+  ancientTrait?: AncientTrait;
+  rules?: string[];
 }
 
 export interface Ability {
-  name: string
-  text: string
-  type: string
+  name: string;
+  text: string;
+  type: string;
 }
 
 export interface Attack {
-  cost: string[]
-  name: string
-  text: string
-  damage: string
-  convertedEnergyCost: number
+  name: string;
+  cost: string[];
+  convertedEnergyCost: number;
+  damage: string;
+  text: string;
 }
 
 export interface Weakness {
-  type: string
-  value: string
+  type: string;
+  value: string;
 }
 
 export interface Resistance {
-  type: string
-  value: string
+  type: string;
+  value: string;
 }
 
 export interface Set {
-  id: string
-  name: string
-  series: string
-  printedTotal: number
-  total: number
-  legalities: Legalities
-  ptcgoCode?: string
-  releaseDate: string
-  updatedAt: string
-  images: Images
+  id: string;
+  name: string;
+  series: string;
+  printedTotal: number;
+  total: number;
+  legalities: Legalities;
+  ptcgoCode?: string;
+  releaseDate: string;
+  updatedAt: string;
+  images: Images;
 }
 
 export interface Legalities {
-  unlimited: string
-  expanded?: string
+  unlimited: string;
+  expanded?: string;
+  standard?: string;
 }
 
 export interface Images {
-  symbol: string
-  logo: string
+  symbol: string;
+  logo: string;
 }
 
 export interface Legalities2 {
-  unlimited: string
-  expanded?: string
+  unlimited: string;
+  expanded?: string;
+  standard?: string;
 }
 
 export interface Images2 {
-  small: string
-  large: string
+  small: string;
+  large: string;
 }
 
 export interface Tcgplayer {
-  url: string
-  updatedAt: string
-  prices?: Prices
+  url: string;
+  updatedAt: string;
+  prices: Prices;
 }
 
 export interface Prices {
-  holofoil?: Holofoil
-  "1stEditionHolofoil"?: N1stEditionHolofoil
-  unlimitedHolofoil?: UnlimitedHolofoil
-  normal?: Normal
-  reverseHolofoil?: ReverseHolofoil
-}
-
-export interface Holofoil {
-  low: number
-  mid: number
-  high: number
-  market: number
-  directLow?: number
-}
-
-export interface N1stEditionHolofoil {
-  low: number
-  mid: number
-  high: number
-  market: number
-  directLow?: number
-}
-
-export interface UnlimitedHolofoil {
-  low: number
-  mid: number
-  high: number
-  market: number
-  directLow?: number
+  normal?: Normal;
+  reverseHolofoil?: ReverseHolofoil;
+  holofoil?: Holofoil;
+  '1stEditionHolofoil'?: N1stEditionHolofoil;
+  unlimitedHolofoil?: UnlimitedHolofoil;
 }
 
 export interface Normal {
-  low: number
-  mid: number
-  high: number
-  market?: number
-  directLow?: number
+  low: number;
+  mid: number;
+  high: number;
+  market: number;
+  directLow?: number;
 }
 
 export interface ReverseHolofoil {
-  low: number
-  mid: number
-  high: number
-  market: number
-  directLow?: number
+  low: number;
+  mid: number;
+  high: number;
+  market: number;
+  directLow?: number;
+}
+
+export interface Holofoil {
+  low: number;
+  mid: number;
+  high: number;
+  market: number;
+  directLow?: number;
+}
+
+export interface N1stEditionHolofoil {
+  low: number;
+  mid: number;
+  high: number;
+  market: number;
+  directLow?: number;
+}
+
+export interface UnlimitedHolofoil {
+  low: number;
+  mid: number;
+  high: number;
+  market: number;
+  directLow?: number;
 }
 
 export interface Cardmarket {
-  url: string
-  updatedAt: string
-  prices: Prices2
+  url: string;
+  updatedAt: string;
+  prices: Prices2;
 }
 
 export interface Prices2 {
-  averageSellPrice: number
-  lowPrice: number
-  trendPrice: number
-  germanProLow: number
-  suggestedPrice: number
-  reverseHoloSell: number
-  reverseHoloLow: number
-  reverseHoloTrend: number
-  lowPriceExPlus: number
-  avg1: number
-  avg7: number
-  avg30: number
-  reverseHoloAvg1: number
-  reverseHoloAvg7: number
-  reverseHoloAvg30: number
+  averageSellPrice: number;
+  lowPrice: number;
+  trendPrice: number;
+  germanProLow: number;
+  suggestedPrice: number;
+  reverseHoloSell: number;
+  reverseHoloLow: number;
+  reverseHoloTrend: number;
+  lowPriceExPlus: number;
+  avg1: number;
+  avg7: number;
+  avg30: number;
+  reverseHoloAvg1: number;
+  reverseHoloAvg7: number;
+  reverseHoloAvg30: number;
+}
+
+export interface AncientTrait {
+  name: string;
+  text: string;
 }

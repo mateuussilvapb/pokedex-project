@@ -13,7 +13,10 @@
           <h2 igxCardHeaderTitle class="text-center">
             {{ carta.name }}
           </h2>
-          <div class="flex flex-row flex-nowrap text-base mt-3">
+          <div
+            *ngIf="carta.supertype == 'Pokémon'"
+            class="flex flex-row flex-nowrap text-base mt-3"
+          >
             <div class="grid w-full grid-cols-4">
               <div class="text-center">
                 <div class="font-semibold">Habilidades</div>
@@ -39,6 +42,15 @@
                   {{ resitencia.type }}
                 </div>
               </div>
+            </div>
+          </div>
+          <div
+            *ngIf="carta.supertype == 'Trainer'"
+            class="flex flex-col flex-nowrap text-base mt-3"
+          >
+            <div class="font-semibold text-center">Regras</div>
+            <div *ngFor="let rule of carta.rules" class="my-1 text-justify">
+              {{ rule }}
             </div>
           </div>
         </div>

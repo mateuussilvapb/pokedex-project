@@ -38,9 +38,11 @@ export class VisualizarBaralhoComponent implements OnInit {
   public get tiposUnicos(): Set<string> {
     const tipos = new Set<string>();
     this.baralho.cartas.forEach((carta) => {
-      carta['cardPokemon'].types.forEach((tipo) => {
-        tipos.add(tipo);
-      });
+      if (carta['cardPokemon'].types) {
+        carta['cardPokemon'].types.forEach((tipo) => {
+          tipos.add(tipo);
+        });
+      }
     });
     return tipos;
   }
