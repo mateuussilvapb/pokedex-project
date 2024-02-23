@@ -239,7 +239,6 @@ export class EditarBaralhoComponent {
   }
 
   private createPokemonGroup(cardPokemon: PokemonData): FormGroup {
-    debugger;
     const group: { [key: string]: any } = {};
     for (const key in cardPokemon) {
       if (cardPokemon.hasOwnProperty(key)) {
