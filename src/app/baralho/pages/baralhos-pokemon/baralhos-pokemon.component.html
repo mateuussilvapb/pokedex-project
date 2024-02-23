@@ -25,26 +25,41 @@
                 igxButton="icon"
                 [igxRippleCentered]="true"
                 (click)="visualizarBaralho(cell.row.data.id)"
+                [hideDelay]="500"
+                [igxTooltipTarget]="tooltipBtnVisualizarBaralho"
               >
                 <igx-icon name="see" family="filter-icons"></igx-icon>
               </button>
+              <div #tooltipBtnVisualizarBaralho="tooltip" igxTooltip>
+                Clique para visualizar o baralho
+              </div>
               <button
                 igxEnd
                 igxRipple
                 igxButton="icon"
                 [igxRippleCentered]="true"
+                [hideDelay]="500"
+                [igxTooltipTarget]="tooltipBtnEditarBaralho"
               >
                 <igx-icon name="edit" family="filter-icons"></igx-icon>
               </button>
+              <div #tooltipBtnEditarBaralho="tooltip" igxTooltip>
+                Clique para editar o baralho
+              </div>
               <button
                 igxEnd
                 igxRipple
                 igxButton="icon"
                 [igxRippleCentered]="true"
                 (click)="confirmarExclusao(cell.id.rowID)"
+                [hideDelay]="500"
+                [igxTooltipTarget]="tooltipBtnExcluirBaralho"
               >
                 <igx-icon name="delete" family="filter-icons"></igx-icon>
               </button>
+              <div #tooltipBtnExcluirBaralho="tooltip" igxTooltip>
+                Clique para excluir o baralho
+              </div>
             </ng-template>
           </igx-column>
           <igx-column
@@ -58,9 +73,18 @@
       </div>
     </igx-card-content>
     <igx-card-actions class="flex flex-nowrap flex-row-reverse">
-      <button igxButton="outlined" igxRipple routerLink="criar-baralho">
+      <button
+        igxButton="outlined"
+        igxRipple
+        routerLink="criar-baralho"
+        [hideDelay]="500"
+        [igxTooltipTarget]="tooltipBtnCriarBaralho"
+      >
         Criar Baralho
       </button>
+      <div #tooltipBtnCriarBaralho="tooltip" igxTooltip>
+        Clique para ir para tela de criar baralho
+      </div>
     </igx-card-actions>
   </igx-card>
 </div>
@@ -86,11 +110,25 @@
       igxRipple
       (click)="dialogDelecao.close()"
       class="mr-1"
+      [hideDelay]="500"
+      [igxTooltipTarget]="tooltipBtnCancelarExclusao"
     >
       Não!
     </button>
-    <button igxButton="outlined" igxRipple (click)="deletarBaralho()">
+    <div #tooltipBtnCancelarExclusao="tooltip" igxTooltip>
+      Clique para cancelar a exclusão
+    </div>
+    <button
+      igxButton="outlined"
+      igxRipple
+      (click)="deletarBaralho()"
+      [hideDelay]="500"
+      [igxTooltipTarget]="tooltipBtnConfirmarExclusao"
+    >
       Sim, excluir!
     </button>
+    <div #tooltipBtnConfirmarExclusao="tooltip" igxTooltip>
+      Clique para confirmar a exclusão
+    </div>
   </igx-dialog-actions>
 </igx-dialog>
