@@ -136,6 +136,7 @@ export class EditarBaralhoComponent {
     const index = this.pokemonFormArray.controls.findIndex(
       (item) => item.get('name').value == card.name
     );
+    this.pokemonFormArray.markAsDirty();
     if (index != undefined && index != null && typeof index == 'number') {
       this.pokemonFormArray.removeAt(index);
     }
