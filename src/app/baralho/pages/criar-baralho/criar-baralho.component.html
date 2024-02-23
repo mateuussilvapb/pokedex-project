@@ -49,9 +49,14 @@
                     igxButton="icon"
                     [igxRippleCentered]="true"
                     (click)="removeCard(cell.row.data)"
+                    [hideDelay]="500"
+                    [igxTooltipTarget]="tooltipRemoverCarta"
                   >
                     <igx-icon name="remove" family="filter-icons"></igx-icon>
                   </button>
+                  <div igxTooltip #tooltipRemoverCarta="tooltip">
+                    Clique para remover a carta do baralho
+                  </div>
                   {{ getQtdCartasBaralho(cell.row.data.name) }}
                   <button
                     igxEnd
@@ -60,9 +65,14 @@
                     igxButton="icon"
                     [igxRippleCentered]="true"
                     (click)="addCard(cell.row.data)"
+                    [hideDelay]="500"
+                    [igxTooltipTarget]="tooltipAdicionarCarta"
                   >
                     <igx-icon name="add" family="filter-icons"></igx-icon>
                   </button>
+                  <div igxTooltip #tooltipAdicionarCarta="tooltip">
+                    Clique para adicionar a carta ao baralho
+                  </div>
                 </ng-template>
               </igx-column>
               <igx-column
@@ -107,38 +117,58 @@
               <igx-column header="Tipos" [dataType]="'string'">
                 <ng-template igxCell let-cell="cell" let-val>
                   <i
+                    [hideDelay]="500"
+                    [igxTooltipTarget]="tooltipTipos"
                     (click)="showTypes(cell.id)"
                     class="cursor-pointer justify-center text-2xl"
                     >...</i
                   >
                 </ng-template>
+                <div igxTooltip #tooltipTipos="tooltip">
+                  Clique para visualizar os Tipos
+                </div>
               </igx-column>
               <igx-column header="Ataques" [dataType]="'string'">
                 <ng-template igxCell let-cell="cell" let-val>
                   <i
+                    [hideDelay]="500"
+                    [igxTooltipTarget]="tooltipAtaques"
                     (click)="showAttacks(cell.id)"
                     class="cursor-pointer justify-center text-2xl"
                     >...</i
                   >
                 </ng-template>
+                <div igxTooltip #tooltipAtaques="tooltip">
+                  Clique para visualizar os Ataques
+                </div>
               </igx-column>
               <igx-column header="Habilidades" [dataType]="'string'">
                 <ng-template igxCell let-val let-cell="cell">
                   <i
+                    [hideDelay]="500"
+                    [igxTooltipTarget]="tooltipHabilidades"
                     (click)="showAbilities(cell.id)"
                     class="cursor-pointer justify-center text-2xl"
                     >...</i
                   >
                 </ng-template>
+                <div igxTooltip #tooltipHabilidades="tooltip">
+                  Clique para visualizar as Habilidades
+                </div>
               </igx-column>
               <igx-column header="Fraquezas" [dataType]="'string'">
                 <ng-template igxCell let-cell="cell" let-val>
                   <i
+                    [hideDelay]="500"
+                    [igxTooltipTarget]="tooltipFraquezas"
                     (click)="showWeaknesses(cell.id)"
                     class="cursor-pointer justify-center text-2xl"
                     >...</i
                   >
                 </ng-template>
+                <div igxTooltip #tooltipFraquezas="tooltip">
+                  Clique para visualizar as Fraquezas
+                </div>
               </igx-column>
             </igx-grid>
           </div>
@@ -166,18 +196,28 @@
           type="button"
           [routerLink]="['']"
           igxButton="outlined"
+          [hideDelay]="500"
+          [igxTooltipTarget]="tooltipVoltarTela"
         >
           Voltar
         </button>
+        <div igxTooltip #tooltipVoltarTela="tooltip">
+          Clique para voltar a tela de listagem de baralhos
+        </div>
         <button
           igxRipple
           igxStart
           type="submit"
           igxButton="outlined"
           [disabled]="form.invalid"
+          [hideDelay]="500"
+          [igxTooltipTarget]="tooltipCriarBaralho"
         >
           Criar Baralho
         </button>
+        <div igxTooltip #tooltipCriarBaralho="tooltip">
+          Clique para finalizar a criação do baralho
+        </div>
       </igx-card-actions>
     </igx-card>
   </div>
@@ -210,6 +250,8 @@
       class="mr-1"
       igxButton="outlined"
       (click)="dialogTipos.close()"
+      [hideDelay]="500"
+      [igxTooltipTarget]="tooltipFecharDialogo"
     >
       Fechar
     </button>
@@ -236,6 +278,8 @@
       class="mr-1"
       igxButton="outlined"
       (click)="dialogAtaques.close()"
+      [hideDelay]="500"
+      [igxTooltipTarget]="tooltipFecharDialogo"
     >
       Fechar
     </button>
@@ -265,6 +309,8 @@
       class="mr-1"
       igxButton="outlined"
       (click)="dialogHabilidades.close()"
+      [hideDelay]="500"
+      [igxTooltipTarget]="tooltipFecharDialogo"
     >
       Fechar
     </button>
@@ -291,6 +337,8 @@
       class="mr-1"
       igxButton="outlined"
       (click)="dialogFraquezas.close()"
+      [hideDelay]="500"
+      [igxTooltipTarget]="tooltipFecharDialogo"
     >
       Fechar
     </button>
@@ -321,8 +369,14 @@
       class="mr-1"
       igxButton="outlined"
       (click)="dialogCard.close()"
+      [hideDelay]="500"
+      [igxTooltipTarget]="tooltipFecharDialogo"
     >
       Fechar
     </button>
   </igx-dialog-actions>
 </igx-dialog>
+
+<div igxTooltip #tooltipFecharDialogo="tooltip">
+  Clique para fechar esta janela
+</div>
