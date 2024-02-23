@@ -47,9 +47,14 @@
           type="button"
           [routerLink]="['']"
           igxButton="outlined"
+          [hideDelay]="500"
+          [igxTooltipTarget]="tooltipVoltarTela"
         >
           Voltar
         </button>
+        <div igxTooltip #tooltipVoltarTela="tooltip">
+          Clique para voltar a tela de listagem de baralhos
+        </div>
       </div>
     </igx-card-actions>
   </igx-card>
